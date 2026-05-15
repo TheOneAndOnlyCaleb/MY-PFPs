@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caleb's cutie Portfolio</title>
+    <!-- Google Fonts for a sleek, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #121212;
+            --card-border: #1a1a1a;
+            --neon-red: #ff3344;
+            --neon-glow: rgba(255, 51, 68, 0.25);
+            --text-main: #ffffff;
+            --text-muted: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle ambient background glow */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--neon-red);
+            filter: blur(150px);
+            opacity: 0.15;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .portfolio-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                        0 0 30px rgba(255, 51, 68, 0.05);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            border-color: rgba(255, 51, 68, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+                        0 0 40px var(--neon-glow);
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 20px var(--neon-glow);
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: #23a55a; /* Discord Online Green */
+            border: 3px solid var(--card-bg);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .discord-tag {
+            color: var(--neon-red);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            display: inline-block;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px var(--neon-glow);
+            transition: opacity 0.2s;
+        }
+
+        .discord-tag:hover {
+            opacity: 0.8;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            padding: 0 10px;
+        }
+
+        .separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--card-border), var(--neon-red), var(--card-border), transparent);
+            margin-bottom: 32px;
+        }
+
+        .skills-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            text-align: left;
+            padding-left: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skills-heading::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 14px;
+            background: var(--neon-red);
+            box-shadow: 0 0 8px var(--neon-red);
+            border-radius: 2px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 14px 18px;
+            border-radius: 14px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .skill-row:hover {
+            transform: translateX(4px);
+            border-color: rgba(255, 51, 68, 0.2);
+            background: rgba(255, 51, 68, 0.02);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .skill-level {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        /* Dynamic colors based on proficiency */
+        .level-professional {
+            color: var(--neon-red);
+            background: rgba(255, 51, 68, 0.1);
+            border: 1px solid rgba(255, 51, 68, 0.2);
+            text-shadow: 0 0 8px rgba(255, 51, 68, 0.3);
+        }
+
+        .level-fluent {
+            color: #ff7733;
+            background: rgba(255, 119, 51, 0.1);
+            border: 1px solid rgba(255, 119, 51, 0.2);
+        }
+
+        .level-intermediate {
+            color: #ffcc33;
+            background: rgba(255, 204, 51, 0.1);
+            border: 1px solid rgba(255, 204, 51, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portfolio-card">
+        <!-- Avatar Area -->
+        <div class="avatar-container">
+            <img src="https://raw.githubusercontent.com/TheOneAndOnlyCaleb/MY-PFPs/refs/heads/main/teff.jpg" alt="Caleb's Avatar" class="avatar">
+            <div class="status-dot"></div>
+        </div>
+
+        <!-- Identity -->
+        <h1>Caleb</h1>
+        <a href="https://discord.com/users/reallytuff_senki" target="_blank" class="discord-tag">@reallytuff_senki</a>
+
+        <!-- Description (Placed above skills) -->
+        <p class="description">
+            Hey there! I'm Caleb. I am a passionate developer specializing in building complex logic systems, custom scripting, and software architecture. Welcome to my little corner of the web.
+        </p>
+
+        <div class="separator"></div>
+
+        <!-- Programming Languages Section -->
+        <div class="skills-heading">Expertise</div>
+        
+        <div class="skills-container">
+            <!-- Lua -->
+            <div class="skill-row">
+                <span class="skill-name">Lua</span>
+                <span class="skill-level level-professional">Professional</span>
+            </div>
+
+            <!-- C# -->
+            <div class="skill-row">
+                <span class="skill-name">C#</span>
+                <span class="skill-level level-professional">Professional</span>
+            </div>
+
+            <!-- Python -->
+            <div class="skill-row">
+                <span class="skill-name">Python</span>
+                <span class="skill-level level-fluent">Fluent</span>
+            </div>
+
+            <!-- JS -->
+            <div class="skill-row">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-level level-intermediate">Intermediate</span>
+            </div>
+
+            <!-- C++ -->
+            <div class="skill-row">
+                <span class="skill-name">C++</span>
+                <span class="skill-level level-intermediate">Intermediate</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
